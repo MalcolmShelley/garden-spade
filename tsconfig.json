@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "outDir": "dist",
+        "declaration": true,
+        "target": "es2017",
+        "sourceMap": true,
+        "module": "commonjs",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "moduleResolution": "Node",
+        "strict": false,
+        "importHelpers": true,
+        "strictFunctionTypes" : false,
+        "forceConsistentCasingInFileNames": true,
+    },
+    "include": ["./src/**/*"],
+}
