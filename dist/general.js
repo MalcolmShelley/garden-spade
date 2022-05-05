@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.clamp = exports.getFirstDefined = exports.BufferedAction = exports.AttemptOnDelay = exports.sleep = exports.GenerateUID = void 0;
+exports.clamp = exports.xor = exports.getFirstDefined = exports.BufferedAction = exports.AttemptOnDelay = exports.sleep = exports.GenerateUID = void 0;
 const ExistingUIDs = {
     id: 0,
 };
@@ -207,6 +207,10 @@ function getFirstDefined(...items) {
     return undefined;
 }
 exports.getFirstDefined = getFirstDefined;
+function xor(a, b) {
+    return (a || b) && !(a && b);
+}
+exports.xor = xor;
 /**
  * Returns the value, unless the value is outside the range specified by min max,
  * in which case it returns either min or max based on which is closer

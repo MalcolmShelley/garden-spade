@@ -70,6 +70,7 @@ export declare class BufferedAction {
     forceReset(): void;
 }
 export declare function getFirstDefined<T>(...items: (T | undefined)[]): T | undefined;
+export declare function xor(a: any, b: any): boolean;
 /**
  * Returns the value, unless the value is outside the range specified by min max,
  * in which case it returns either min or max based on which is closer

@@ -211,6 +211,11 @@ export function getFirstDefined<T>(...items: (T | undefined)[]): T | undefined{
     return undefined;
 }
 
+export function xor(a, b): boolean{
+    return ( a || b ) && !( a && b )
+}
+
+
 /**
  * Returns the value, unless the value is outside the range specified by min max,
  * in which case it returns either min or max based on which is closer
