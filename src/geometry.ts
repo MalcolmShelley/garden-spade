@@ -1,5 +1,5 @@
 
-export function pointInPolygon (point: number[], vs : number[][] | number[], start:number | undefined, end:number | undefined) {
+export function pointInPolygon (point: number[], vs : number[][] | number[], start:number | undefined = undefined, end:number | undefined = undefined) {
     if (vs.length > 0 && Array.isArray(vs[0])) {
         // @ts-ignore
         return pointInPolygonNested(point, vs, start, end);

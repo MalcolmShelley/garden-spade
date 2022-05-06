@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pointInPolygon = void 0;
-function pointInPolygon(point, vs, start, end) {
+function pointInPolygon(point, vs, start = undefined, end = undefined) {
     if (vs.length > 0 && Array.isArray(vs[0])) {
         // @ts-ignore
         return pointInPolygonNested(point, vs, start, end);
