@@ -21,10 +21,11 @@ export declare function getTimeString(time: Date, formatString: string): string;
  * @param {Date} Measuredfrom Usually current time.
  * @param {boolean} UseTimespanPrefixes If false, result will describe somethign like "in 1 hour". If true, will instead say "for one hour"
  * @param {boolean} shortNotation If true short forms like "mins" instead of "minutes" will be used.
+ * @param maxAccuracy
  * @return {string}
  *
  */
-export declare function GenerateApproximateTime(DateInput: any, Measuredfrom?: any, UseTimespanPrefixes?: boolean, shortNotation?: boolean): string;
+export declare function GenerateApproximateTime(DateInput: any, Measuredfrom?: any, UseTimespanPrefixes?: boolean, shortNotation?: boolean, maxAccuracy?: "seconds" | "days"): string;
 /**
  * Gets a date object representation of
  * @param date

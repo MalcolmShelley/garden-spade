@@ -103,6 +103,7 @@ export function getTimeString(time: Date, formatString: string): string {
  * @param {Date} Measuredfrom Usually current time.
  * @param {boolean} UseTimespanPrefixes If false, result will describe somethign like "in 1 hour". If true, will instead say "for one hour"
  * @param {boolean} shortNotation If true short forms like "mins" instead of "minutes" will be used.
+ * @param maxAccuracy
  * @return {string}
  *
  */
@@ -110,7 +111,8 @@ export function GenerateApproximateTime(
     DateInput,
     Measuredfrom = undefined,
     UseTimespanPrefixes = false,
-    shortNotation = false
+    shortNotation = false,
+    maxAccuracy : "seconds" | "days" = "seconds",
 ) {
     const CurTime = Measuredfrom || new Date(Date.now());
     let TimeUntil = DateInput.valueOf() - CurTime.valueOf();
@@ -158,6 +160,12 @@ export function GenerateApproximateTime(
             }
         }
         if (TimeUntil < 1000 * 60 * 60 * 24 && CurTime.getDay() === DateInput.getDay()) {
+            if(maxAccuracy === "days"){
+                return (
+                    until +
+                    "today"
+                );
+            }
             //Less than 1 day
             return (
                 until +
@@ -169,6 +177,12 @@ export function GenerateApproximateTime(
             );
         }
         if (TimeUntil < 1000 * 60 * 60 * 48 && (CurTime.getDay() + 1) % 7 === DateInput.getDay()) {
+            if(maxAccuracy === "days"){
+                return (
+                    until +
+                    "tomorrow"
+                );
+            }
             //Tomorrow
             return (
                 until +
@@ -180,6 +194,12 @@ export function GenerateApproximateTime(
             );
         }
         if (TimeUntil < 1000 * 60 * 60 * 24 * 6) {
+            if(maxAccuracy === "days"){
+                return (
+                    until +
+                    DayLookup[DateInput.getDay()]
+                );
+            }
             //Tomorrow
             return (
                 until +
@@ -192,6 +212,14 @@ export function GenerateApproximateTime(
             );
         }
         if (TimeUntil < 1000 * 60 * 60 * 24 * 100) {
+            if(maxAccuracy === "days"){
+                return (
+                    until +
+                    ShortMonthLookup[DateInput.getMonth()] +
+                    " " +
+                    DateInput.getDate()
+                );
+            }
             //Tomorrow
             return (
                 until +
@@ -246,6 +274,12 @@ export function GenerateApproximateTime(
             }
         }
         if (timeAgo < 1000 * 60 * 60 * 24 && CurTime.getDay() === DateInput.getDay()) {
+            if(maxAccuracy === "days"){
+                return (
+                    until +
+                    "today"
+                );
+            }
             //Less than 1 day
             return (
                 until +
@@ -257,10 +291,16 @@ export function GenerateApproximateTime(
             );
         }
         if (timeAgo < 1000 * 60 * 60 * 48 && (CurTime.getDay() + 1) % 7 === DateInput.getDay()) {
+            if(maxAccuracy === "days"){
+                return (
+                    until +
+                    "yesterday"
+                );
+            }
             //Tomorrow
             return (
                 until +
-                "tomorrow at " +
+                "yesterday at " +
                 ((DateInput.getHours() % 12) + 1) +
                 ":" +
                 Minutes +
@@ -268,6 +308,12 @@ export function GenerateApproximateTime(
             );
         }
         if (timeAgo < 1000 * 60 * 60 * 24 * 6) {
+            if(maxAccuracy === "days"){
+                return (
+                    until +
+                    DayLookup[DateInput.getDay()]
+                );
+            }
             //Tomorrow
             return (
                 until +
@@ -280,6 +326,14 @@ export function GenerateApproximateTime(
             );
         }
         if (timeAgo < 1000 * 60 * 60 * 24 * 100) {
+            if(maxAccuracy === "days"){
+                return (
+                    until +
+                    ShortMonthLookup[DateInput.getMonth()] +
+                    " " +
+                    DateInput.getDate()
+                );
+            }
             //Tomorrow
             return (
                 until +
