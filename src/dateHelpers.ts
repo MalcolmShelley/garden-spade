@@ -96,6 +96,13 @@ export function getTimeString(time: Date, formatString: string): string {
     return formatString;
 }
 
+export function HoursToAMPM(h){
+    if(h % 12 === 0){
+        return 12;
+    }
+    return h % 12;
+}
+
 /**
  * Generates string representation of approximate time or time span. e.g. this might turn May 27th at 12:04 UTC into something
  * like "in two minutes" or "two minutes ago" if UseTimespanPrefixes is true, it might instead return "for two minutes"
@@ -170,7 +177,7 @@ export function GenerateApproximateTime(
             return (
                 until +
                 "today at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am")
@@ -187,7 +194,7 @@ export function GenerateApproximateTime(
             return (
                 until +
                 "tomorrow at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am")
@@ -205,7 +212,7 @@ export function GenerateApproximateTime(
                 until +
                 DayLookup[DateInput.getDay()] +
                 " at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am")
@@ -227,7 +234,7 @@ export function GenerateApproximateTime(
                 " " +
                 DateInput.getDate() +
                 " at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am")
@@ -284,7 +291,7 @@ export function GenerateApproximateTime(
             return (
                 until +
                 "today at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am")
@@ -301,7 +308,7 @@ export function GenerateApproximateTime(
             return (
                 until +
                 "yesterday at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am")
@@ -319,7 +326,7 @@ export function GenerateApproximateTime(
                 until +
                 DayLookup[DateInput.getDay()] +
                 " at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am")
@@ -341,7 +348,7 @@ export function GenerateApproximateTime(
                 " " +
                 DateInput.getDate() +
                 " at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am")
