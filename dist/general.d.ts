@@ -80,3 +80,8 @@ export declare function xor(a: any, b: any): boolean;
  * @returns {number}
  */
 export declare function clamp(value: number, min: number, max: number): number;
+export declare const base64: {
+    _Rixits: string;
+    fromNumber: (number: any) => string;
+    toNumber: (rixits: any) => number;
+};

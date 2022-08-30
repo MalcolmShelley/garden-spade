@@ -14,6 +14,7 @@ export declare function AddEndingToDate(day: any): string;
  * @return {string}
  */
 export declare function getTimeString(time: Date, formatString: string): string;
+export declare function HoursToAMPM(h: any): number;
 /**
  * Generates string representation of approximate time or time span. e.g. this might turn May 27th at 12:04 UTC into something
  * like "in two minutes" or "two minutes ago" if UseTimespanPrefixes is true, it might instead return "for two minutes"

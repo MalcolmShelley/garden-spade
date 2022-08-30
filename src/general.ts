@@ -228,7 +228,7 @@ export function clamp(value:number, min:number, max:number) : number{
     return Math.min(Math.max(value, min), max)
 }
 
-export  const base64 = {
+export const base64 = {
 
     _Rixits :
 //   0       8       16      24      32      40      48      56     63

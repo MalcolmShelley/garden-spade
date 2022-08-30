@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UTCDateString = exports.getDateOfStartOfWeek = exports.GenerateApproximateTime = exports.getTimeString = exports.AddEndingToDate = exports.ShortMonthLookup = exports.LongMonthLookup = exports.ShortDayLookup = exports.DayLookup = void 0;
+exports.UTCDateString = exports.getDateOfStartOfWeek = exports.GenerateApproximateTime = exports.HoursToAMPM = exports.getTimeString = exports.AddEndingToDate = exports.ShortMonthLookup = exports.LongMonthLookup = exports.ShortDayLookup = exports.DayLookup = void 0;
 exports.DayLookup = [
     "Sunday",
     "Monday",
@@ -95,6 +95,13 @@ function getTimeString(time, formatString) {
     return formatString;
 }
 exports.getTimeString = getTimeString;
+function HoursToAMPM(h) {
+    if (h % 12 === 0) {
+        return 12;
+    }
+    return h % 12;
+}
+exports.HoursToAMPM = HoursToAMPM;
 /**
  * Generates string representation of approximate time or time span. e.g. this might turn May 27th at 12:04 UTC into something
  * like "in two minutes" or "two minutes ago" if UseTimespanPrefixes is true, it might instead return "for two minutes"
@@ -159,7 +166,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
             //Less than 1 day
             return (until +
                 "today at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
@@ -172,7 +179,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
             //Tomorrow
             return (until +
                 "tomorrow at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
@@ -186,7 +193,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
             return (until +
                 exports.DayLookup[DateInput.getDay()] +
                 " at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
@@ -204,7 +211,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
                 " " +
                 DateInput.getDate() +
                 " at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
@@ -255,7 +262,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
             //Less than 1 day
             return (until +
                 "today at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
@@ -268,7 +275,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
             //Tomorrow
             return (until +
                 "yesterday at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
@@ -282,7 +289,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
             return (until +
                 exports.DayLookup[DateInput.getDay()] +
                 " at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
@@ -300,7 +307,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
                 " " +
                 DateInput.getDate() +
                 " at " +
-                ((DateInput.getHours() % 12) + 1) +
+                HoursToAMPM(DateInput.getHours()) +
                 ":" +
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
