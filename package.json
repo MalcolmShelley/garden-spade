@@ -14,8 +14,7 @@
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./dist/index.js",
-        "./dist/general": "./dist/general.js"
+        ".": "./dist/index.js"
     },
     "scripts": {
         "build": "npx tsc",
