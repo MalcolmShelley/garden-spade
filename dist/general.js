@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.base64 = exports.clamp = exports.xor = exports.getFirstDefined = exports.BufferedAction = exports.AttemptOnDelay = exports.sleep = exports.GenerateUID = void 0;
+exports.base64 = exports.roundToDecimals = exports.clamp = exports.xor = exports.getFirstDefined = exports.BufferedAction = exports.AttemptOnDelay = exports.sleep = exports.GenerateUID = void 0;
 const ExistingUIDs = {
     id: 0,
 };
@@ -223,6 +223,10 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 exports.clamp = clamp;
+function roundToDecimals(value, numberOfDecimals) {
+    return Math.round(value * Math.pow(10, numberOfDecimals)) / Math.pow(10, numberOfDecimals);
+}
+exports.roundToDecimals = roundToDecimals;
 exports.base64 = {
     _Rixits: 
     //   0       8       16      24      32      40      48      56     63

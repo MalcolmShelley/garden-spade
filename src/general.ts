@@ -228,6 +228,10 @@ export function clamp(value:number, min:number, max:number) : number{
     return Math.min(Math.max(value, min), max)
 }
 
+export function roundToDecimals(value, numberOfDecimals) : number{
+    return Math.round(value * Math.pow(10, numberOfDecimals))/Math.pow(10, numberOfDecimals)
+}
+
 export const base64 = {
 
     _Rixits :
