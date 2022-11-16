@@ -9,6 +9,12 @@ export declare function AddEndingToDate(day: any): string;
  * HH:mm NN -> 14:30 PM
  * h:mm nn -> 2:30 pm
  * ss is seconds
+ * M is numeric month (e.g. 2)
+ * MM is padded numeric month (e.g. 02)
+ * MMM is short month (e.g. Feb)
+ * MMMM is long month (e.g. February)
+ * d is day
+ * dd is padded day
  * @param {Date} time
  * @param formatString
  * @return {string}

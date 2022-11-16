@@ -67,6 +67,12 @@ exports.AddEndingToDate = AddEndingToDate;
  * HH:mm NN -> 14:30 PM
  * h:mm nn -> 2:30 pm
  * ss is seconds
+ * M is numeric month (e.g. 2)
+ * MM is padded numeric month (e.g. 02)
+ * MMM is short month (e.g. Feb)
+ * MMMM is long month (e.g. February)
+ * d is day
+ * dd is padded day
  * @param {Date} time
  * @param formatString
  * @return {string}
@@ -92,6 +98,15 @@ function getTimeString(time, formatString) {
     formatString = formatString.replace(/ss/g, time.getSeconds.toString().padStart(2, "0"));
     formatString = formatString.replace(/nn/g, ampm);
     formatString = formatString.replace(/NN/g, AMPM);
+    formatString = formatString.replace(/dd/g, time.getDate().toString().padStart(2, "0"));
+    formatString = formatString.replace(/d/g, time.getDate().toString());
+    //move these to lower case so they don't conflict with anything else
+    formatString = formatString.replace(/MMMM/g, "mmmm");
+    formatString = formatString.replace(/MMM/g, "mmm");
+    formatString = formatString.replace(/M/g, (time.getMonth() + 1).toString());
+    formatString = formatString.replace(/MM/g, (time.getMonth() + 1).toString().padStart(2, "0"));
+    formatString = formatString.replace(/mmmm/g, exports.LongMonthLookup[time.getMonth()]);
+    formatString = formatString.replace(/mmm/g, exports.ShortMonthLookup[time.getMonth()]);
     return formatString;
 }
 exports.getTimeString = getTimeString;
