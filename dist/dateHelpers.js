@@ -77,9 +77,19 @@ exports.AddEndingToDate = AddEndingToDate;
  * @param formatString
  * @return {string}
  */
-function getTimeString(time, formatString) {
+function getTimeString(time, formatString, utc = false) {
     let milHours = time.getHours();
     let minutes = time.getMinutes();
+    let date = time.getDate();
+    let month = time.getMonth();
+    let year = time.getFullYear();
+    if (utc) {
+        milHours = time.getUTCHours();
+        minutes = time.getUTCMinutes();
+        date = time.getUTCDate();
+        month = time.getUTCMonth();
+        year = time.getUTCFullYear();
+    }
     let ampm = "am";
     let AMPM = "AM";
     let standHours = milHours;
@@ -98,15 +108,17 @@ function getTimeString(time, formatString) {
     formatString = formatString.replace(/ss/g, time.getSeconds.toString().padStart(2, "0"));
     formatString = formatString.replace(/nn/g, ampm);
     formatString = formatString.replace(/NN/g, AMPM);
-    formatString = formatString.replace(/dd/g, time.getDate().toString().padStart(2, "0"));
-    formatString = formatString.replace(/d/g, time.getDate().toString());
+    formatString = formatString.replace(/dd/g, date.toString().padStart(2, "0"));
+    formatString = formatString.replace(/d/g, date.toString());
     //move these to lower case so they don't conflict with anything else
     formatString = formatString.replace(/MMMM/g, "mmmm");
     formatString = formatString.replace(/MMM/g, "mmm");
-    formatString = formatString.replace(/M/g, (time.getMonth() + 1).toString());
-    formatString = formatString.replace(/MM/g, (time.getMonth() + 1).toString().padStart(2, "0"));
-    formatString = formatString.replace(/mmmm/g, exports.LongMonthLookup[time.getMonth()]);
-    formatString = formatString.replace(/mmm/g, exports.ShortMonthLookup[time.getMonth()]);
+    formatString = formatString.replace(/M/g, (month + 1).toString());
+    formatString = formatString.replace(/MM/g, (month + 1).toString().padStart(2, "0"));
+    formatString = formatString.replace(/mmmm/g, exports.LongMonthLookup[month]);
+    formatString = formatString.replace(/mmm/g, exports.ShortMonthLookup[month]);
+    formatString = formatString.replace(/yy/g, year.toString().substring(2, 4));
+    formatString = formatString.replace(/yyyy/g, year.toString());
     return formatString;
 }
 exports.getTimeString = getTimeString;
