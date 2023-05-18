@@ -66,6 +66,7 @@ exports.AddEndingToDate = AddEndingToDate;
  * hh:mm nn -> 02:30 pm
  * HH:mm NN -> 14:30 PM
  * h:mm nn -> 2:30 pm
+ * mmm is milliseconds
  * ss is seconds
  * M is numeric month (e.g. 2)
  * MM is padded numeric month (e.g. 02)
@@ -104,8 +105,9 @@ function getTimeString(time, formatString, utc = false) {
     formatString = formatString.replace(/HH/g, milHours.toString().padStart(2, "0"));
     formatString = formatString.replace(/H/g, milHours.toString());
     formatString = formatString.replace(/h/g, standHours.toString());
+    formatString = formatString.replace(/mmm/g, time.getMilliseconds().toString().padStart(3, "0"));
     formatString = formatString.replace(/mm/g, minutes.toString().padStart(2, "0"));
-    formatString = formatString.replace(/ss/g, time.getSeconds.toString().padStart(2, "0"));
+    formatString = formatString.replace(/ss/g, time.getSeconds().toString().padStart(2, "0"));
     formatString = formatString.replace(/nn/g, ampm);
     formatString = formatString.replace(/NN/g, AMPM);
     formatString = formatString.replace(/dd/g, date.toString().padStart(2, "0"));

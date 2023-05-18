@@ -8,6 +8,7 @@ export declare function AddEndingToDate(day: any): string;
  * hh:mm nn -> 02:30 pm
  * HH:mm NN -> 14:30 PM
  * h:mm nn -> 2:30 pm
+ * mmm is milliseconds
  * ss is seconds
  * M is numeric month (e.g. 2)
  * MM is padded numeric month (e.g. 02)
