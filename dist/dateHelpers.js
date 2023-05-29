@@ -119,8 +119,8 @@ function getTimeString(time, formatString, utc = false) {
     formatString = formatString.replace(/MM/g, (month + 1).toString().padStart(2, "0"));
     formatString = formatString.replace(/mmmm/g, exports.LongMonthLookup[month]);
     formatString = formatString.replace(/mmm/g, exports.ShortMonthLookup[month]);
-    formatString = formatString.replace(/yy/g, year.toString().substring(2, 4));
     formatString = formatString.replace(/yyyy/g, year.toString());
+    formatString = formatString.replace(/yy/g, year.toString().substring(2, 4));
     return formatString;
 }
 exports.getTimeString = getTimeString;

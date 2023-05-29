@@ -127,8 +127,8 @@ export function getTimeString(time: Date, formatString: string, utc=false): stri
     formatString = formatString.replace(/mmm/g, ShortMonthLookup[month]);
 
 
-    formatString = formatString.replace(/yy/g, year.toString().substring(2, 4));
     formatString = formatString.replace(/yyyy/g, year.toString());
+    formatString = formatString.replace(/yy/g, year.toString().substring(2, 4));
     return formatString;
 }
 
