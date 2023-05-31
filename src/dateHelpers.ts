@@ -120,8 +120,8 @@ export function getTimeString(time: Date, formatString: string, utc=false): stri
     //move these to lower case so they don't conflict with anything else
     formatString = formatString.replace(/MMMM/g, "mmmm");
     formatString = formatString.replace(/MMM/g, "mmm");
-    formatString = formatString.replace(/M/g, (month + 1).toString());
     formatString = formatString.replace(/MM/g, (month + 1).toString().padStart(2, "0"));
+    formatString = formatString.replace(/M/g, (month + 1).toString());
 
     formatString = formatString.replace(/mmmm/g, LongMonthLookup[month]);
     formatString = formatString.replace(/mmm/g, ShortMonthLookup[month]);
