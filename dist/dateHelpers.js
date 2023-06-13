@@ -72,6 +72,8 @@ exports.AddEndingToDate = AddEndingToDate;
  * MM is padded numeric month (e.g. 02)
  * MMM is short month (e.g. Feb)
  * MMMM is long month (e.g. February)
+ * yy is 2 digit year
+ * yyyy is 4 digit year
  * d is day
  * dd is padded day
  * @param {Date} time
