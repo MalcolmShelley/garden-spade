@@ -145,8 +145,15 @@ exports.HoursToAMPM = HoursToAMPM;
  *
  */
 function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespanPrefixes = false, shortNotation = false, maxAccuracy = "seconds") {
-    const CurTime = Measuredfrom || new Date(Date.now());
-    let TimeUntil = DateInput.valueOf() - CurTime.valueOf();
+    const refTime = Measuredfrom || new Date(Date.now());
+    let refTimeIsToday = false;
+    {
+        let actualTime = new Date(Date.now());
+        refTimeIsToday =
+            actualTime.getDate() === refTime.getDate() &&
+                Math.abs(actualTime.valueOf() - refTime.valueOf()) < (1000 * 60 * 60 * 48);
+    }
+    let TimeUntil = DateInput.valueOf() - refTime.valueOf();
     if (UseTimespanPrefixes && TimeUntil < 0) {
         TimeUntil = TimeUntil * -1;
     }
@@ -189,31 +196,55 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
                 return IN + Hours + " " + hours;
             }
         }
-        if (TimeUntil < 1000 * 60 * 60 * 24 && CurTime.getDay() === DateInput.getDay()) {
-            if (maxAccuracy === "days") {
+        if (TimeUntil < 1000 * 60 * 60 * 24 && refTime.getDay() === DateInput.getDay()) {
+            if (refTimeIsToday) {
+                if (maxAccuracy === "days") {
+                    return (until +
+                        "today");
+                }
+                //Less than 1 day
                 return (until +
-                    "today");
+                    "today at " +
+                    HoursToAMPM(DateInput.getHours()) +
+                    ":" +
+                    Minutes +
+                    (DateInput.getHours() >= 12 ? "pm" : "am"));
             }
-            //Less than 1 day
-            return (until +
-                "today at " +
-                HoursToAMPM(DateInput.getHours()) +
-                ":" +
-                Minutes +
-                (DateInput.getHours() >= 12 ? "pm" : "am"));
+            else {
+                return until +
+                    HoursToAMPM(DateInput.getHours()) +
+                    ":" +
+                    Minutes +
+                    (DateInput.getHours() >= 12 ? "pm" : "am");
+            }
         }
-        if (TimeUntil < 1000 * 60 * 60 * 48 && (CurTime.getDay() + 1) % 7 === DateInput.getDay()) {
-            if (maxAccuracy === "days") {
+        if (TimeUntil < 1000 * 60 * 60 * 48 && (refTime.getDay() + 1) % 7 === DateInput.getDay()) {
+            if (refTimeIsToday) {
+                if (maxAccuracy === "days") {
+                    return (until +
+                        "tomorrow");
+                }
+                //Tomorrow
                 return (until +
-                    "tomorrow");
+                    "tomorrow at " +
+                    HoursToAMPM(DateInput.getHours()) +
+                    ":" +
+                    Minutes +
+                    (DateInput.getHours() >= 12 ? "pm" : "am"));
             }
-            //Tomorrow
-            return (until +
-                "tomorrow at " +
-                HoursToAMPM(DateInput.getHours()) +
-                ":" +
-                Minutes +
-                (DateInput.getHours() >= 12 ? "pm" : "am"));
+            else {
+                if (UseTimespanPrefixes) {
+                    if (maxAccuracy === "days") {
+                        return until + "the next day";
+                    }
+                    return until +
+                        HoursToAMPM(DateInput.getHours()) +
+                        ":" +
+                        Minutes +
+                        (DateInput.getHours() >= 12 ? "pm" : "am") +
+                        "the next day";
+                }
+            }
         }
         if (TimeUntil < 1000 * 60 * 60 * 24 * 6) {
             if (maxAccuracy === "days") {
@@ -285,7 +316,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
                 return Hours + " " + hours + ago;
             }
         }
-        if (timeAgo < 1000 * 60 * 60 * 24 && CurTime.getDay() === DateInput.getDay()) {
+        if (timeAgo < 1000 * 60 * 60 * 24 && refTime.getDay() === DateInput.getDay()) {
             if (maxAccuracy === "days") {
                 return (until +
                     "today");
@@ -298,7 +329,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
                 Minutes +
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
         }
-        if (timeAgo < 1000 * 60 * 60 * 48 && (CurTime.getDay() + 1) % 7 === DateInput.getDay()) {
+        if (timeAgo < 1000 * 60 * 60 * 48 && (refTime.getDay() + 1) % 7 === DateInput.getDay()) {
             if (maxAccuracy === "days") {
                 return (until +
                     "yesterday");
