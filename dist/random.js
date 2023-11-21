@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRandomId = exports.getRandomItem = exports.getRandomBetween = void 0;
 /**
  * Get a random number between two numbers
  *
@@ -8,11 +5,10 @@ exports.getRandomId = exports.getRandomItem = exports.getRandomBetween = void 0;
  * @param max Maximum number
  * @returns Random number between min and max
  */
-const general_1 = require("./general");
-function getRandomBetween(min, max) {
+import { clamp } from "./general.js";
+export function getRandomBetween(min, max) {
     return Math.random() * (max - min) + min;
 }
-exports.getRandomBetween = getRandomBetween;
 /**
  * Get a random number between two numbers
  *
@@ -20,17 +16,16 @@ exports.getRandomBetween = getRandomBetween;
  * @param max Maximum number
  * @returns Random number between min and max
  */
-function getRandomItem(...items) {
-    return items[(0, general_1.clamp)(Math.round(Math.random() * items.length - .5), 0, items.length - 1)];
+export function getRandomItem(...items) {
+    return items[clamp(Math.round(Math.random() * items.length - .5), 0, items.length - 1)];
 }
-exports.getRandomItem = getRandomItem;
 /**
  * Generate random ID of specified length
  *
  * @param length
  * @returns
  */
-function getRandomId(length) {
+export function getRandomId(length) {
     let result = "";
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
@@ -39,5 +34,4 @@ function getRandomId(length) {
     }
     return result;
 }
-exports.getRandomId = getRandomId;
 //# sourceMappingURL=random.js.map

@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UTCDateString = exports.getDateOfStartOfWeek = exports.GenerateApproximateTime = exports.HoursToAMPM = exports.getTimeString = exports.AddEndingToDate = exports.ShortMonthLookup = exports.LongMonthLookup = exports.ShortDayLookup = exports.DayLookup = void 0;
-exports.DayLookup = [
+export const DayLookup = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -10,8 +7,8 @@ exports.DayLookup = [
     "Friday",
     "Saturday",
 ];
-exports.ShortDayLookup = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-exports.LongMonthLookup = [
+export const ShortDayLookup = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+export const LongMonthLookup = [
     "January",
     "February",
     "March",
@@ -25,7 +22,7 @@ exports.LongMonthLookup = [
     "November",
     "December",
 ];
-exports.ShortMonthLookup = [
+export const ShortMonthLookup = [
     "Jan",
     "Feb",
     "Mar",
@@ -39,7 +36,7 @@ exports.ShortMonthLookup = [
     "Nov",
     "Dec",
 ];
-function AddEndingToDate(day) {
+export function AddEndingToDate(day) {
     let lastDigit = day % 10;
     if (day > 10 && day < 14) {
         return day.toString() + "th";
@@ -60,7 +57,6 @@ function AddEndingToDate(day) {
     }
     return day.toString() + "th";
 }
-exports.AddEndingToDate = AddEndingToDate;
 /**
  * 2:30 pm in different format strings:
  * hh:mm nn -> 02:30 pm
@@ -80,7 +76,7 @@ exports.AddEndingToDate = AddEndingToDate;
  * @param formatString
  * @return {string}
  */
-function getTimeString(time, formatString, utc = false) {
+export function getTimeString(time, formatString, utc = false) {
     let milHours = time.getHours();
     let minutes = time.getMinutes();
     let date = time.getDate();
@@ -119,20 +115,18 @@ function getTimeString(time, formatString, utc = false) {
     formatString = formatString.replace(/MMM/g, "mmm");
     formatString = formatString.replace(/MM/g, (month + 1).toString().padStart(2, "0"));
     formatString = formatString.replace(/M/g, (month + 1).toString());
-    formatString = formatString.replace(/mmmm/g, exports.LongMonthLookup[month]);
-    formatString = formatString.replace(/mmm/g, exports.ShortMonthLookup[month]);
+    formatString = formatString.replace(/mmmm/g, LongMonthLookup[month]);
+    formatString = formatString.replace(/mmm/g, ShortMonthLookup[month]);
     formatString = formatString.replace(/yyyy/g, year.toString());
     formatString = formatString.replace(/yy/g, year.toString().substring(2, 4));
     return formatString;
 }
-exports.getTimeString = getTimeString;
-function HoursToAMPM(h) {
+export function HoursToAMPM(h) {
     if (h % 12 === 0) {
         return 12;
     }
     return h % 12;
 }
-exports.HoursToAMPM = HoursToAMPM;
 /**
  * Generates string representation of approximate time or time span. e.g. this might turn May 27th at 12:04 UTC into something
  * like "in two minutes" or "two minutes ago" if UseTimespanPrefixes is true, it might instead return "for two minutes"
@@ -144,7 +138,7 @@ exports.HoursToAMPM = HoursToAMPM;
  * @return {string}
  *
  */
-function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespanPrefixes = false, shortNotation = false, maxAccuracy = "seconds") {
+export function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespanPrefixes = false, shortNotation = false, maxAccuracy = "seconds") {
     const refTime = Measuredfrom || new Date(Date.now());
     let refTimeIsToday = false;
     {
@@ -249,11 +243,11 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
         if (TimeUntil < 1000 * 60 * 60 * 24 * 6) {
             if (maxAccuracy === "days") {
                 return (until +
-                    exports.DayLookup[DateInput.getDay()]);
+                    DayLookup[DateInput.getDay()]);
             }
             //Tomorrow
             return (until +
-                exports.DayLookup[DateInput.getDay()] +
+                DayLookup[DateInput.getDay()] +
                 " at " +
                 HoursToAMPM(DateInput.getHours()) +
                 ":" +
@@ -263,13 +257,13 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
         if (TimeUntil < 1000 * 60 * 60 * 24 * 100) {
             if (maxAccuracy === "days") {
                 return (until +
-                    exports.ShortMonthLookup[DateInput.getMonth()] +
+                    ShortMonthLookup[DateInput.getMonth()] +
                     " " +
                     DateInput.getDate());
             }
             //Tomorrow
             return (until +
-                exports.ShortMonthLookup[DateInput.getMonth()] +
+                ShortMonthLookup[DateInput.getMonth()] +
                 " " +
                 DateInput.getDate() +
                 " at " +
@@ -279,7 +273,7 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
         }
         return (until +
-            exports.ShortMonthLookup[DateInput.getMonth()] +
+            ShortMonthLookup[DateInput.getMonth()] +
             " " +
             DateInput.getDate() +
             " " +
@@ -345,11 +339,11 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
         if (timeAgo < 1000 * 60 * 60 * 24 * 6) {
             if (maxAccuracy === "days") {
                 return (until +
-                    exports.DayLookup[DateInput.getDay()]);
+                    DayLookup[DateInput.getDay()]);
             }
             //Tomorrow
             return (until +
-                exports.DayLookup[DateInput.getDay()] +
+                DayLookup[DateInput.getDay()] +
                 " at " +
                 HoursToAMPM(DateInput.getHours()) +
                 ":" +
@@ -359,13 +353,13 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
         if (timeAgo < 1000 * 60 * 60 * 24 * 100) {
             if (maxAccuracy === "days") {
                 return (until +
-                    exports.ShortMonthLookup[DateInput.getMonth()] +
+                    ShortMonthLookup[DateInput.getMonth()] +
                     " " +
                     DateInput.getDate());
             }
             //Tomorrow
             return (until +
-                exports.ShortMonthLookup[DateInput.getMonth()] +
+                ShortMonthLookup[DateInput.getMonth()] +
                 " " +
                 DateInput.getDate() +
                 " at " +
@@ -375,35 +369,32 @@ function GenerateApproximateTime(DateInput, Measuredfrom = undefined, UseTimespa
                 (DateInput.getHours() >= 12 ? "pm" : "am"));
         }
         return (until +
-            exports.ShortMonthLookup[DateInput.getMonth()] +
+            ShortMonthLookup[DateInput.getMonth()] +
             " " +
             DateInput.getDate() +
             " " +
             DateInput.getFullYear());
     }
 }
-exports.GenerateApproximateTime = GenerateApproximateTime;
 /**
  * Gets a date object representation of
  * @param date
  * @returns {Date}
  */
-function getDateOfStartOfWeek(date) {
+export function getDateOfStartOfWeek(date) {
     const d = new Date(date.valueOf());
     d.setDate(d.getDate() - d.getDay());
     d.setHours(0, 0, 0, 100);
     return d;
 }
-exports.getDateOfStartOfWeek = getDateOfStartOfWeek;
 /**
  * @param date
  * @returns standardized utc date string as day-month-year. Do not modify. Used by backend to cache irrigation dates on schedule objects.
  */
-function UTCDateString(date) {
+export function UTCDateString(date) {
     if (!(date instanceof Date)) {
         date = new Date(date);
     }
     return `${date.getUTCDate()}-${date.getUTCMonth()}-${date.getUTCFullYear()}`;
 }
-exports.UTCDateString = UTCDateString;
 //# sourceMappingURL=dateHelpers.js.map

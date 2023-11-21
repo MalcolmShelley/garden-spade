@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.base64 = exports.roundToDecimals = exports.clamp = exports.xor = exports.getFirstDefined = exports.BufferedAction = exports.AttemptOnDelay = exports.sleep = exports.GenerateUID = void 0;
+import { __awaiter } from "tslib";
 const ExistingUIDs = {
     id: 0,
 };
@@ -10,7 +8,7 @@ const ExistingUIDs = {
  * @returns {string}
  * @constructor
  */
-function GenerateUID(prefix = "id") {
+export function GenerateUID(prefix = "id") {
     prefix.replace("#", "Hash");
     if (!ExistingUIDs[prefix]) {
         ExistingUIDs[prefix] = 0;
@@ -18,7 +16,6 @@ function GenerateUID(prefix = "id") {
     ExistingUIDs[prefix]++;
     return `${prefix}#${ExistingUIDs[prefix]}`;
 }
-exports.GenerateUID = GenerateUID;
 /**
  * JS implementation of python sleep. Promisified so it can be used to delay a thread
  * @param delay
@@ -26,16 +23,17 @@ exports.GenerateUID = GenerateUID;
  * @param args
  * @returns {Promise<any>}
  */
-async function sleep(delay = 100, fn = undefined, ...args) {
-    await timeout(delay);
-    if (fn) {
-        return fn(...args);
-    }
-    else {
-        return;
-    }
+export function sleep(delay = 100, fn = undefined, ...args) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield timeout(delay);
+        if (fn) {
+            return fn(...args);
+        }
+        else {
+            return;
+        }
+    });
 }
-exports.sleep = sleep;
 function timeout(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -47,20 +45,21 @@ function timeout(ms) {
  * @param args arguments for fn
  * @return {Promise<*>}
  */
-async function AttemptOnDelay(delay, attemptLimit = 3, fn, ...args) {
-    let attempts = 0;
-    let result = false;
-    while (attempts < attemptLimit && !result) {
-        attempts++;
-        await timeout(delay);
-        try {
-            result = fn(...args);
+export function AttemptOnDelay(delay, attemptLimit = 3, fn, ...args) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let attempts = 0;
+        let result = false;
+        while (attempts < attemptLimit && !result) {
+            attempts++;
+            yield timeout(delay);
+            try {
+                result = fn(...args);
+            }
+            catch (e) { }
         }
-        catch (e) { }
-    }
-    return result;
+        return result;
+    });
 }
-exports.AttemptOnDelay = AttemptOnDelay;
 /*
 Examples of buffered action:
 @ : buffered action is triggered
@@ -95,7 +94,7 @@ falling edge and wait for quiet:
     executions:           ¤                        ¤          |
         events:  @             @    @ @                       |
  */
-class BufferedAction {
+export class BufferedAction {
     /**
      *
      * @param action Function to call when triggered
@@ -197,8 +196,7 @@ class BufferedAction {
         this.currentlyRunning = false;
     }
 }
-exports.BufferedAction = BufferedAction;
-function getFirstDefined(...items) {
+export function getFirstDefined(...items) {
     for (let i = 0; i < items.length; i++) {
         if (items[i] !== undefined) {
             return items[i];
@@ -206,11 +204,9 @@ function getFirstDefined(...items) {
     }
     return undefined;
 }
-exports.getFirstDefined = getFirstDefined;
-function xor(a, b) {
+export function xor(a, b) {
     return (a || b) && !(a && b);
 }
-exports.xor = xor;
 /**
  * Returns the value, unless the value is outside the range specified by min max,
  * in which case it returns either min or max based on which is closer
@@ -219,15 +215,13 @@ exports.xor = xor;
  * @param max
  * @returns {number}
  */
-function clamp(value, min, max) {
+export function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
-exports.clamp = clamp;
-function roundToDecimals(value, numberOfDecimals) {
+export function roundToDecimals(value, numberOfDecimals) {
     return Math.round(value * Math.pow(10, numberOfDecimals)) / Math.pow(10, numberOfDecimals);
 }
-exports.roundToDecimals = roundToDecimals;
-exports.base64 = {
+export const base64 = {
     _Rixits: 
     //   0       8       16      24      32      40      48      56     63
     //   v       v       v       v       v       v       v       v      v

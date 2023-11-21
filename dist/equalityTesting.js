@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.testJSONEquality = exports.testArrayEquality = exports.testGeneralEquality = void 0;
-function testGeneralEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"]) {
+export function testGeneralEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"]) {
     if (Array.isArray(a) && Array.isArray(b)) {
         return testArrayEquality(a, b, keyFilter);
     }
@@ -19,8 +16,7 @@ function testGeneralEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"
     }
     return a.toString() === b.toString();
 }
-exports.testGeneralEquality = testGeneralEquality;
-function testArrayEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"]) {
+export function testArrayEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"]) {
     if (Array.isArray(a) && Array.isArray(b)) {
         if (a.length !== b.length) {
             return false;
@@ -34,8 +30,7 @@ function testArrayEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"])
     }
     throw new Error("not an array, cannot test equality");
 }
-exports.testArrayEquality = testArrayEquality;
-function testJSONEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"]) {
+export function testJSONEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"]) {
     if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
         let getKeyList = (o) => {
             return Object.keys(o).sort().filter((v) => {
@@ -58,5 +53,4 @@ function testJSONEquality(a, b, keyFilter = ["_v", "id", "__v", "_id", "__id"]) 
     }
     throw new Error("not an object, cannot test equality");
 }
-exports.testJSONEquality = testJSONEquality;
 //# sourceMappingURL=equalityTesting.js.map

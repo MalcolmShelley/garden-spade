@@ -5,7 +5,7 @@
  * @param max Maximum number
  * @returns Random number between min and max
  */
-import {clamp} from "./general";
+import {clamp} from "./general.js";
 
 export function getRandomBetween(min: number, max: number): number {
     return Math.random() * (max - min) + min;

@@ -1,5 +1,5 @@
-export * as GeneralUtil from "./general";
-export * as DateUtil from "./dateHelpers";
-export * as geometry from "./geometry";
-export * as equality from "./equalityTesting"
-export * as random from "./random";
+export * as GeneralUtil from "./general.js";
+export * as DateUtil from "./dateHelpers.js";
+export * as geometry from "./geometry.js";
+export * as equality from "./equalityTesting.js";
+export * as random from "./random.js";

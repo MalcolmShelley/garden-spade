@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.iterativelyComputeKMeans = exports.pointInPolygon = void 0;
-function pointInPolygon(point, vs, start = undefined, end = undefined) {
+export function pointInPolygon(point, vs, start = undefined, end = undefined) {
     if (vs.length > 0 && Array.isArray(vs[0])) {
         // @ts-ignore
         return pointInPolygonNested(point, vs, start, end);
@@ -11,7 +8,6 @@ function pointInPolygon(point, vs, start = undefined, end = undefined) {
         return pointInPolygonFlat(point, vs, start, end);
     }
 }
-exports.pointInPolygon = pointInPolygon;
 function pointInPolygonFlat(point, vs, start, end) {
     var x = point[0], y = point[1];
     var inside = false;
@@ -128,12 +124,11 @@ function calculateKMeansOnce(x, n, means) {
  * @param cycles number of itterations
  * @returns {{val: number, vals: number[]}[]}
  */
-function iterativelyComputeKMeans(x, n, cycles = 5) {
+export function iterativelyComputeKMeans(x, n, cycles = 5) {
     let means = calculateKMeansOnce(x, n);
     for (let i = 0; i < cycles; i++) {
         means = calculateKMeansOnce(x, n, means);
     }
     return means;
 }
-exports.iterativelyComputeKMeans = iterativelyComputeKMeans;
 //# sourceMappingURL=geometry.js.map
